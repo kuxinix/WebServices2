@@ -1,0 +1,2 @@
+The service process regostration request. If request was approved it returns approved message and registration successfull message. If not it denies the registration.
+
