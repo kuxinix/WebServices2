@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RRimplService" targetNamespace="http://tut02/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://tut02/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://tut02/" schemaLocation="rrimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="regReq">
+    <wsdl:part name="parameters" element="tns:regReq">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="regReqResponse">
+    <wsdl:part name="parameters" element="tns:regReqResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RR">
+    <wsdl:operation name="regReq">
+      <wsdl:input name="regReq" message="tns:regReq">
+    </wsdl:input>
+      <wsdl:output name="regReqResponse" message="tns:regReqResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RRimplServiceSoapBinding" type="tns:RR">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="regReq">
+      <soap:operation soapAction="urn:RegReq" style="document"/>
+      <wsdl:input name="regReq">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="regReqResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RRimplService">
+    <wsdl:port name="RRimplPort" binding="tns:RRimplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/RegistrationRequest/services/RRimplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
