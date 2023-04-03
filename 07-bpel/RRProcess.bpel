@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<process name="CustomCalculator"
+    targetNamespace="http://tut02/Req/bpel" 
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:tns="http://tut02/Req/bpel"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tnswsdl="http://tut02/Req/wsdl"
+    xmlns:tnsxsd="http://tut02/Req/xsd"
+    xmlns:req="http://tut02/"
+    queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
+    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+
+    <import location="RRProcess.wsdl"
+      namespace="http://tut02/req/wsdl"
+      importType="http://schemas.xmlsoap.org/wsdl/" />
+
+    <partnerLinks>
+    <partnerLink name="RequestRegPartnerLink" 
+        partnerLinkType="tnswsdl:RequestRegLinkType" 
+        myRole="RequestRegClientRole" 
+        partnerRole="RequestRegRole"
+        />
+    <partnerLink name="RequestPayLinkType" 
+        partnerLinkType="tnswsdl:RequestRegLinkType" 
+        myRole="RequestPayClientRole" 
+        partnerRole="RequestPayRole"
+        />
+    <partnerLink name="RequestAutPartnerLink" 
+        partnerLinkType="tnswsdl:RequestAutLinkType" 
+        myRole="RequestAutClientRole" 
+        partnerRole="RequestAutRole"
+        />
+    </partnerLinks>
+
+    <variables>
+    <variable name="RegRequestElement" element="req:regReq" />
+    <variable name="regRequest" messageType="req:regReq" />
+    <variable name="regResponse" messageType="req:regReqResponse" />
+    <variable name="regResponseElement" element="req:regReqResponse" />
+
+    <variable name="PayRequestElement" element="req:payReq" />
+    <variable name="payRequest" messageType="req:payReq" />
+    <variable name="payResponse" messageType="req:payReqResponse" />
+    <variable name="payResponseElement" element="req:payReqResponse" />
+
+    <variable name="AutRequestElement" element="req:autReq" />
+    <variable name="autRequest" messageType="req:autReq" />
+    <variable name="autResponse" messageType="req:autReqResponse" />
+    <variable name="autResponseElement" element="req:autReqResponse" />
+  </variables>
+
+
+  <sequence>
+  
+    <receive
+        name="ReceiveReqInputs"
+        partnerLink="PartnerLink"
+        portType="tnswsdl:ReqRegPortType"
+        operation="requestSomething"
+        variable="inputMessage"
+        createInstance="yes" />
+    
+    <assign name="ParseInput">
+    	<copy>
+    		<from variable="inputMessage" part="parameters"/>
+    		<to variable="inputNumber"/>
+    	</copy>
+    </assign>
+    
+    <assign name="InitRegRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<req:regReq>
+        			<calc:arg0></req:arg0>
+        		</req:regReq>
+        	</literal>
+        </from>
+        <to variable="RegRequestElement" />
+      </copy>
+      <copy>
+      	<from>$inputBoolean</from>
+      	<to>$regRequestElement/req:arg0</to>
+      </copy>
+      <copy>
+      	<from variable="RegRequestElement"/>
+      	<to variable="regRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+    <assign name="InitPayRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<req:payReq>
+        			<calc:arg0></req:arg0>
+        		</req:payReq>
+        	</literal>
+        </from>
+        <to variable="PayRequestElement" />
+      </copy>
+      <copy>
+      	<from>$inputBoolean</from>
+      	<to>$payRequestElement/req:arg0</to>
+      </copy>
+      <copy>
+      	<from variable="PayRequestElement"/>
+      	<to variable="payRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+    <assign name="InitAutRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<req:autReq>
+        			<calc:arg0></req:arg0>
+        		</req:autReq>
+        	</literal>
+        </from>
+        <to variable="AutRequestElement" />
+      </copy>
+      <copy>
+      	<from>$inputBoolean</from>
+      	<to>$autRequestElement/req:arg0</to>
+      </copy>
+      <copy>
+      	<from variable="AutRequestElement"/>
+      	<to variable="autRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+	<invoke
+        name="InvokeReqRegistration"
+        partnerLink="RegRequestLink"
+        operation="regReq"
+        inputVariable="regRequest"
+        outputVariable="regResponse" />
+
+    <invoke
+        name="InvokeReqPayment"
+        partnerLink="PayRequestLink"
+        operation="payReq"
+        inputVariable="payRequest"
+        outputVariable="payResponse" />
+
+    <invoke
+        name="InvokeReqAuthorisation"
+        partnerLink="AutRequestLink"
+        operation="autReq"
+        inputVariable="autRequest"
+        outputVariable="autResponse" />
+        
+    <assign name="ParseRegResponse">
+    	<copy>
+    		<from variable="regResponse" part="parameters"/>
+    		<to variable="regResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$regResponseElement/req:RegistrationResult</from>
+    		<to variable="outputMessage" part="parameters"/>
+    	</copy>
+    </assign> 
+
+    <assign name="ParsePayResponse">
+    	<copy>
+    		<from variable="payResponse" part="parameters"/>
+    		<to variable="payResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$payResponseElement/req:PaymentResult</from>
+    		<to variable="outputMessage" part="parameters"/>
+    	</copy>
+    </assign> 
+
+    <assign name="ParseAutResponse">
+    	<copy>
+    		<from variable="autResponse" part="parameters"/>
+    		<to variable="autResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$autResponseElement/req:AuthorisationResult</from>
+    		<to variable="outputMessage" part="parameters"/>
+    	</copy>
+    </assign> 
+
+   
+    <reply name="ReplyRquestOutputs"  
+        partnerLink="PartnerLink"
+        portType="tnswsdl:ReqRegPortType"
+        operation="requestSomething"
+        variable="outputMessage" />
+    
+    
+  </sequence>
+  
+</process>

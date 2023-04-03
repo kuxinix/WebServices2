@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions 
+    xmlns:tns="http://tut02/Req/wsdl" 
+    xmlns:tnsxsd="http://tut02/Req/xsd" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+    xmlns:req="http://tut02/"
+    targetNamespace="http://tut02/Req/wsdl">
+
+<wsdl:import location="RR.wsdl"
+    namespace="http://tut02/" />
+
+<wsdl:types>
+	<xsd:schema targetNamespace="http://tut02/Req/xsd">
+		<xsd:element name="reqIn" type="xsd:boolean"/>
+		<xsd:element name="reqOut" type="xsd:string"/>
+	</xsd:schema>
+</wsdl:types>
+
+<wsdl:message name="ReqInputMessage">
+	<wsdl:part name="parameters" element="tnsxsd:reqIn"/>
+</wsdl:message>
+
+<wsdl:message name="RqOutputMessage">
+	<wsdl:part name="parameters" element="tnsxsd:reqOut"/>
+</wsdl:message>
+
+<wsdl:portType name="ReqRegPortType">
+    <wsdl:operation name="reqReg">
+        <wsdl:output name="reqRegOut" message="req:regReqResponse"/>
+    </wsdl:operation>
+</wsdl:portType>
+
+<wsdl:portType name="ReqPayPortType">
+    <wsdl:operation name="reqPay">
+        <wsdl:output name="reqPayOut" message="req:payReqResponse"/>
+    </wsdl:operation>
+</wsdl:portType>
+
+<wsdl:portType name="ReqAutPortType">
+    <wsdl:operation name="reqAut">
+        <wsdl:output name="reqAutOut" message="req:autReqResponse"/>
+    </wsdl:operation>
+</wsdl:portType>
+
+<wsdl:binding name="RequestSOAPBinding" type="tns:ReqRegPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="regReg">
+        <soap:operation soapAction="urn:regResponseOperation" style="document"/>
+        <wsdl:input>
+            <soap:body use="literal"/>
+        </wsdl:input>
+    </wsdl:operation>
+</wsdl:binding>
+
+<wsdl:binding name="RequestSOAPBinding" type="tns:ReqPayPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="regPay">
+        <soap:operation soapAction="urn:payResponseOperation" style="document"/>
+        <wsdl:input>
+            <soap:body use="literal"/>
+        </wsdl:input>
+    </wsdl:operation>
+</wsdl:binding>
+
+<wsdl:binding name="RequestSOAPBinding" type="tns:ReqAutPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="regAut">
+        <soap:operation soapAction="urn:autResponseOperation" style="document"/>
+        <wsdl:input>
+            <soap:body use="literal"/>
+        </wsdl:input>
+    </wsdl:operation>
+</wsdl:binding>
+
+<wsdl:service name="RequestService">
+		<wsdl:port name="RequestPort" binding="tns:RequestSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/Requests"/>
+	</wsdl:port>	
+</wsdl:service>
+
+<plnk:partnerLinkType name="RequestRegLinkType">
+	<plnk:role name="RequestRegRole" portType="req:ReqRegPortType" />
+	<plnk:role name="RequestRegClientRole" portType="tns:regReqResponse" />
+</plnk:partnerLinkType>
+
+<plnk:partnerLinkType name="RequestPayLinkType">
+	<plnk:role name="RequestPayRole" portType="req:ReqPayPortType" />
+	<plnk:role name="RequestPayClientRole" portType="tns:payReqResponse" />
+</plnk:partnerLinkType>
+
+<plnk:partnerLinkType name="RequestAutLinkType">
+	<plnk:role name="RequestAutRole" portType="req:ReqAutPortType" />
+	<plnk:role name="RequestAutClientRole" portType="tns:autReqResponse" />
+</plnk:partnerLinkType>
+
+</wsdl:definitions>
+

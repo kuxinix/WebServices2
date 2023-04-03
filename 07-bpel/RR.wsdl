@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsdl:definitions xmlns="" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://tut02/" targetNamespace="http://tut02/">
+    <wsdl:types>
+        <xs:schema version="1.0" targetNamespace="http://tut02/" xmlns:ns="http://tut02/" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+            <xs:element name="regReq" type="ns:regReq"/>
+            <xs:element name="regReqResponse" type="ns:regReqResponse"/>
+            <xs:complexType name="regReq">
+                <xs:sequence>
+                    <xs:element name="arg0" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="regReqResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>   
+            <xs:element name="paymentRequest" type="ns:payReq">
+            <xs:element name="paymentRequestRespponse" type="ns:payReqResponse">
+            <xs:complexType name="payReq">
+                <xs:sequance>
+                    <xs:element name="arg0" type="xs:boolean"/>
+                </xs:sequance>
+            </xs:complexType>
+            <xs:complexType name="payReqResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType> 
+            <xs:element name="AuthorisationRequest" type="ns:autReq"/>
+            <xs:element name="AuthorisationReqResponse" type="ns:autReqResponse"/>
+            <xs:complexType name="autReq">
+                <xs:sequence>
+                    <xs:element name="arg0" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="autReqResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType> 
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="regReq">
+        <wsdl:part name="parameters" element="ns:regReq"/>
+    </wsdl:message> 
+    <wsdl:message name="regReqResponse">
+        <wsdl:part name="parameters" element="ns:regReqResponse"/>
+    </wsdl:message>
+    <wsdl:message name="payReq">
+        <wsdl:part name="parameters" element="ns:payReq"/>
+    </wsdl:message> 
+    <wsdl:message name="payReqResponse">
+        <wsdl:part name="parameters" element="ns:payReqResponse"/>
+    </wsdl:message> 
+    <wsdl:message name="autReq">
+        <wsdl:part name="parameters" element="ns:autReq"/>
+    </wsdl:message> 
+    <wsdl:message name="autReqResponse">
+        <wsdl:part name="parameters" element="ns:autReqResponse"/>
+    </wsdl:message> 
+    <wsdl:portType name="RR">
+        <wsdl:operation name="regReq">
+            <wsdl:input  wsam:Action="http://tut02/RR/regReqRequest" message="ns:regReq"/>
+            <wsdl:output  wsam:Action="http://tut02/RR/regReqResponse" message="ns:regReqResponse"/> 
+        </wsdl:operation>
+        <wsdl:operation name="payReq">
+            <wsdl:input  wsam:Action="http://tut02/RR/regReqRequest" message="ns:payReq"/>
+            <wsdl:output  wsam:Action="http://tut02/RR/regReqResponse" message="ns:payReqResponse"/> 
+        </wsdl:operation>
+        <wsdl:operation name="autReq">
+            <wsdl:input  wsam:Action="http://tut02/RR/regReqRequest" message="ns:autReq"/>
+            <wsdl:output  wsam:Action="http://tut02/RR/regReqResponse" message="ns:autReqResponse"/> 
+        </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="RRimplPortBinding" type="ns:RR">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="regReq">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="payReq">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="autReq">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="RRimplService">
+        <wsdl:port name="RRimplPort" binding="ns:RRimplPortBinding">
+            <soap:address location="http://127.0.0.1:8000/RR"/>
+        </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>
+
