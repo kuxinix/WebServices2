@@ -67,7 +67,7 @@
 			</node>
 		</nodes>
 		<clerks registerOnStartup="true">
-           <clerk name="kucinicl" node="default" publisher="root" password="geslce" isPasswordEncrypted="false" cryptoProvider="">
+           <clerk name="kuxinix" node="default" publisher="root" password="geslo" isPasswordEncrypted="false" cryptoProvider="">
                 <class>org.apache.juddi.example.RRimpl</class>
            </clerk>
         </clerks>
