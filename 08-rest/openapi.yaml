@@ -1,0 +1,223 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+    
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: persons
+    description: All persons registered in the database
+parameters:
+  userName
+  
+paths:
+  /persons:
+    get:
+      tags:
+        - persons
+      summary: display all persons in database
+      description: display all persons in database
+      operationId: putPersons
+      
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Person'
+       
+  
+  /persons/addPerson/{userName}/{password}:
+    put:
+      tags:
+        - persons
+      summary: add new Person to database
+      parameters:
+       - in: path
+        userName: userName
+        password: password
+        required: true
+      description: addes a new person who registered 
+      operationId: addPerson
+      requestBody:
+        description: addes Person
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Person'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Person'
+  
+ 
+  /persons/getPerson/{userName}:
+    get:
+      tags: 
+        - persons
+      summary: display  a person with userName in database
+      description: display a person from database
+      operationId: getPerson
+      requestBody:
+        description: display persons
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Person'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Person'
+  
+  /persons/changepasswd/{userName}/{password}:
+    post:
+      tags:
+        - persons
+      summary: change password of person with username
+      description: change passwords of a user
+      operationId: changePasswd
+      requestBody:
+        description: change password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Person'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Person'
+ 
+        
+  /persons/deletePerson/{userName}:
+    delete:
+      tags:
+        - persons
+      summary: delete a person with userName from database
+      description: delete a person from database
+      operationId: deletePerson
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Person'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Person'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '405':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  
+
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: "JanezNovak"
+        password:
+          type: string
+          example: "nekoGeslo"
+      xml:
+        name: person
+    
+  requestBodies:
+    Person:
+      description: Person that needs to be added to database
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Person'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Person'
+    PersonArray:
+      description: List of user persons in database
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Persons'
