@@ -1,0 +1,62 @@
+{
+    "@context": {
+        "@base": "https://example.org/iana/media-types/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "media-type": "@id",
+        "type": "@type",
+        "Media type": "http://purl.org/dc/terms/MediaType",
+        "name": "http://purl.org/dc/terms/title",
+        "media-types": "@graph",
+        "passwd": {
+            "@id": "dcterms:subject",
+            "@type": "ov:passwd"
+        }
+    },
+    "media-types": [
+        {
+            "type": "Media type",
+            "media-type": "application/1d-interleaved-parityfec",
+            "name": "application/1d-interleaved-parityfec"
+        },
+        {
+            "type": "Media type",
+            "media-type": "application/3gpdash-qoe-report+xml",
+            "name": "application/3gpdash-qoe-report+xml",
+            "passwd": "nekoGeslo"
+        }
+    ]
+}
+
+
+Exapanded:
+[
+    {
+      "@id": "https://example.org/iana/media-types/application/1d-interleaved-parityfec",
+      "http://purl.org/dc/terms/title": [
+        {
+          "@value": "application/1d-interleaved-parityfec"
+        }
+      ],
+      "@type": [
+        "http://purl.org/dc/terms/MediaType"
+      ]
+    },
+    {
+      "@id": "https://example.org/iana/media-types/application/3gpdash-qoe-report+xml",
+      "http://purl.org/dc/terms/title": [
+        {
+          "@value": "application/3gpdash-qoe-report+xml"
+        }
+      ],
+      "http://purl.org/dc/terms/subject": [
+        {
+          "@type": "ov:passwd",
+          "@value": "nekoGeslo"
+        }
+      ],
+      "@type": [
+        "http://purl.org/dc/terms/MediaType"
+      ]
+    }
+  ]

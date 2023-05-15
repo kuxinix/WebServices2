@@ -1,0 +1,16 @@
+
+    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+    @prefix dcterms: <http://purl.org/dc/terms/> .
+    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+    
+    <https://example.org/iana/media-types/application/1d-interleaved-parityfec> a dcterms:MediaType ;
+        dcterms:title "application/1d-interleaved-parityfec" .
+    
+    <https://example.org/iana/media-types/application/3gpdash-qoe-report+xml> a dcterms:MediaType ;
+        dcterms:issued "2014-04-16"^^xsd:date ;
+        dcterms:title "application/3gpdash-qoe-report+xml" .
+    
+    <https://example.org/iana/media-types/application/3gppHal+json> a dcterms:MediaType ;
+        dcterms:issued "2021-04-28"^^xsd:date ;
+        dcterms:title "application/3gppHal+json" .
+    

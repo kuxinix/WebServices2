@@ -1,0 +1,50 @@
+
+
+
+HW:
+ex:RegistrationConformation a rdfs:Class .
+ex:TransactionConformation a rdfs:Class .
+ex:Account a rdfs:Class .
+
+ex:registeres rdf:Property .
+ex:pays rdf:Property .
+
+ex:RegistrationConformation a rdfs:Class ;
+  rdfs:label "Registration Conformation"@en ;
+  rdfs:comment "Account registeres and receives registration conformation"@en .
+
+ex:regId a rdf:Property ;
+  rdfs:label "Id of registration conformation"@en ;
+  rdfs:domain ex:RegistrationConformation ;
+  rdfs:range xsd:integer .
+
+ex:Status a rdf:Property ;
+  rdfs:label "Status of registration confirmation"@en ;
+  rdfs:domain ex:RegistrationConformation ;
+  rdfs:range xsd:integer .
+
+
+ex:TransactionConfirmation a rdfs:Class ;
+  rdfs:label "Transaction Confirmation"@en ;
+  rdfs:comment "Confirmed transaction "@en .
+
+ex:transID a rdf:Property ;
+  rdfs:label "Id of transcation confirmation"@en ;
+  rdfs:domain ex:TranscactionConfirmation ;
+  rdfs:range xsd:integer .
+
+ex:registeres rdf:Property ;
+  rdfs:label "Registeres"@en ;
+  rdfs:domain ex:Account ;
+  rdfs:range ex:RegistrationConformation .
+
+ex:pays rdf:Property ;
+  rdfs:label "pays"@en ;
+  rdfs:domain ex:Account ;
+  rdfs:range ex:TransactionConfirmation .Account
+
+
+
+
+
+
