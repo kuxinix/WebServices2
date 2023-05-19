@@ -28,8 +28,8 @@ import org.apache.juddi.v3.annotations.UDDIServiceBinding;
  */
 
 @UDDIService(
-		businessKey="uddi:$myBusinessKey",
-		serviceKey="uddi:$myrrservice", 
+		businessKey="uddi:myBusinessKey:$department-asf",
+		serviceKey="uddi:myrrservice:services-rr$department", 
 		description = "Registration Request test service")
 @UDDIServiceBinding(
 		bindingKey="uddi:myrrserviceKey",
