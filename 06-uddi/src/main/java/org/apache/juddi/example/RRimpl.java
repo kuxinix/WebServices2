@@ -28,12 +28,12 @@ import org.apache.juddi.v3.annotations.UDDIServiceBinding;
  */
 
 @UDDIService(
-		businessKey="uddi:$BusinessKey:$department-myBusinessKey",
-		serviceKey="uddi:$BusinessKey:services-myrrservice$department", 
+		businessKey="uddi:$myBusinessKey",
+		serviceKey="uddi:$myrrservice", 
 		description = "Registration Request test service")
 @UDDIServiceBinding(
-		bindingKey="uddi:${keyDomain}:${serverName}-${serverPort}-myrrservice${department}-wsdl",
-	    description="WSDL endpoint for the myrrservice${department} Service. This service is used for "
+		bindingKey="uddi:myrrserviceKey",
+	    description="WSDL endpoint for the myrrservice Service. This service is used for "
 				  + "testing the jUDDI annotation functionality",
 	    accessPointType="wsdlDeployment",
 	    accessPoint="http://${serverName}:${serverPort}/uddi-annotations/services/rr?wsdl")
